@@ -31,4 +31,9 @@ class AdminController extends Controller
         Session::flush();
         return redirect('/admin')->with('flash_message_success', 'Usuário deslogado com sucesso');
     }
+
+    public function settings()
+    {
+        return view('admin.settings');
+    }
 }
