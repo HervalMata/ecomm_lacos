@@ -1,10 +1,28 @@
 
 $(document).ready(function(){
-	
+
+    $("#current_pwd").keyup(function () {
+        var current_pwd = $("#current_pwd").val();
+        $.ajax({
+            type: 'get',
+            url: '/admin/check-pwd',
+            data:{current_pwd:current_pwd},
+            success:function (resp) {
+                if (resp == "false") {
+                    $("#chkPwd").html("<font color='red'>Senha atual está incorreta</font>");
+                } else if (resp == "true") {
+                    $("#chkPwd").html("<font color='green'>Senha atual está correta</font>");
+                }
+            },error:function() {
+                    alert("erro");
+            }
+        })
+    });
+
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
-	
+
 	$('select').select2();
-	
+
 	// Form Validation
     $("#basic_validate").validate({
 		rules:{
@@ -34,7 +52,7 @@ $(document).ready(function(){
 			$(element).parents('.control-group').addClass('success');
 		}
 	});
-	
+
 	$("#number_validate").validate({
 		rules:{
 			min:{
@@ -60,7 +78,7 @@ $(document).ready(function(){
 			$(element).parents('.control-group').addClass('success');
 		}
 	});
-	
+
 	$("#password_validate").validate({
 		rules:{
 			pwd:{
