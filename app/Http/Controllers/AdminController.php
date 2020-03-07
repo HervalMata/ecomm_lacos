@@ -50,4 +50,20 @@ class AdminController extends Controller
             echo "false"; die;
         }
     }
+
+    public function updatePassword(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            $check_password = User::where(['email' => Auth::user()->email])->first();
+            $current_password = $data['current_pwd'];
+        }
+        if (Hash::check($current_password, $check_password->password)) {
+            $password = bcrypt($data['new_pwd']);
+            User::where('id', '1')->update(['password' => $password]);
+            return redirect('/admin/settings')->with('flash_message_success', 'Senha atualizada com sucesso');
+        } else {
+            return redirect('/admin/settings')->with('flash_message_error', 'Senha atual incorreta');
+        }
+    }
 }
