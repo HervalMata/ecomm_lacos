@@ -80,15 +80,20 @@ class ProductController extends Controller
                    Image::make($image_tmp)->resize(600, 600)->save($medium_image_path);
                    Image::make($image_tmp)->resize(300, 300)->save($small_image_path);
                 }
+
+            } else if (!empty($data['current_image'])) {
+                $filename = $data['current_image'];
+            } else {
+                $filename = '';
             }
             Product::where(['id' => $id])->update([
                 'category_id' => $data['category_id'],
-                'product_name' = $data['product_name'],
-                'product_code' = $data['product_code'],
-                'product_color' = $data['product_color'],
-                'description' = $data['description'],
-                'price' = $data['price'],
-                'image' = $filename
+                'product_name' => $data['product_name'],
+                'product_code' => $data['product_code'],
+                'product_color' => $data['product_color'],
+                'description' => $data['description'],
+                'price' => $data['price'],
+                'image' => $filename
              ]);
             return redirect()->back()->with('flash_message_success', "Produto atualizado com sucesso!");
         }
@@ -114,6 +119,12 @@ class ProductController extends Controller
             }
         }
         return view('admin.product.edit-product')->with(compact('productDetails', 'categories_dropdown'));
+    }
+
+    public function deleteProductImage($id = null)
+    {
+        Product::where(['id' => $id])->update(['image' => '']);
+        return redirect()->back()->with('flash_message_error', 'Imagem do produto foi removida com sucesso.')
     }
 
     public function viewProducts()

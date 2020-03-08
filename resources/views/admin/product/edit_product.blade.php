@@ -67,8 +67,12 @@
                                     <div class="control-group">
                                         <label class="control-label">Imagem</label>
                                         <div class="controls">
-                                            <input type="text" name="image" value="{{ $productDetails->image }}"
-                                            id="image"/>
+                                            <input type="text" name="image" id="image"/>
+                                            <input type="hidden" name="current_image" value="{{ $productDetails->image }}">
+                                            @if(!empty($productDetails->image))
+                                                <img style="width: 60px;" src="{{ asset('/images/backend_images/products/small/' . $productDetails->image)b}}"> |
+                                                <a href="{{ url('/admin/delete-product-image/' . $productDetails->image) }}">Remover</a>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="form-actions">
