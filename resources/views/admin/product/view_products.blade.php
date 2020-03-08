@@ -62,6 +62,21 @@
                                                 </td>
                                                 <td class="center"><a href="#myModal{{ $product->id) }}" class="btn btn-primary btn-mini">Visualizar<a href="{{ url('/admin/edit-product' . $product->id) }}" class="btn btn-primary btn-mini">Editar</a> <a id="delCat" href="{{ url('/admin/delete-product' . $product->id) }}" class="btn btn-danger btn-mini">Excluir</a></td>
                                             </tr>
+                                            <div id="myMOdal{{ $product->id }}" class="modal hide">
+                                                <div class="modal-header">
+                                                    <button data-dismiss="modal" class="close" type="button">x</button>
+                                                    <h3>{{ $product->name }}</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Produto ID: {{ $product->id }}</p>
+                                                    <p>Categoria: {{ $product->category_name }}</p>
+                                                    <p>Nome: {{ $product->name }}</p>
+                                                    <p>Código: {{ $product->code }}</p>
+                                                    <p>Cor: {{ $product->color }}</p>
+                                                    <p>Preço: {{ $product->price }}</p>
+                                                    <p>Descrição: {{ $product->description }}</p>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>

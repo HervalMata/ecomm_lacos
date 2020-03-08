@@ -44,7 +44,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach($categories as $category)
-                                            <tr class="gradex">
+                                            <tr class="gradeX">
                                                 <td>{{ $category->id }}</td>
                                                 <td>{{ $category->name }}</td>
                                                 <td>{{ $category->parent_id }}</td>
