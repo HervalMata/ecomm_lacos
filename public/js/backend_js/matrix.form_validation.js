@@ -72,6 +72,42 @@ $(document).ready(function(){
         return false;
     });
 
+    $("#add_product").validate({
+        rules:{
+            category_id:{
+                required:true
+            },
+            product_name:{
+                required:true
+            },
+            product_code:{
+                required:true
+            },
+            product_color:{
+                required:true
+            },
+            description:{
+                required:true
+            },
+            price:{
+                required:true,
+                number:true
+            },
+            image:{
+                required:true
+            }
+        },
+        errorClass: "help-inline",
+        errorElement: "span",
+        highlight:function (element, errorClass, validClass) {
+            $(element).parents('.control-group').addClass('error');
+        },
+        unhighlight:function (element, errorClass, validClass) {
+            $(element).parents('.control-group').removeClass('error');
+            $(element).parents('.control-group').addClass('success');
+        }
+    });
+
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 
 	$('select').select2();
