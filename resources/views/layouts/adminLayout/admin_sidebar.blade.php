@@ -4,6 +4,7 @@
         <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i><span>Categorias</span><span class="label label-important">2</span> </a>
             <ul>
                 <li><a href="{{ url('/admin/add-category') }}">Adicionar Categoria</a> </li>
+                <li><a href="{{ url('/admin/view-categories') }}">Visualizar Categorias</a> </li>
             </ul>
         </li>
         <li> <a href="charts.html"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
