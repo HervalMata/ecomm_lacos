@@ -57,6 +57,65 @@ class ProductController extends Controller
         return view('admin.product.add-product')->with(compact('categories_dropdown'));
     }
 
+    public function editProduct(Request $request, $id = null)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            if (empty($data['category_id'])) {
+                return redirect()->back()->with('flash_message_error', "Categorias estão perdidas!");
+            }
+
+            if (empty($data['description'])) {
+                $data['description'] = '';
+            }
+            if ($request->hasFile('image')) {
+                $image_tmp = Input::file('image');
+                if ($image_tmp->isValid()) {
+                   $extension = $image_tmp->getClientOriginalExtension();
+                   $filename = rand(111, 99999) . '.' . $extension;
+                   $large_image_path = 'images/backend_images/products/large'.$filename;
+                   $medium_image_path = 'images/backend_images/products/medium'.$filename;
+                   $small_image_path = 'images/backend_images/products/small'.$filename;
+                   Image::make($image_tmp)->save($large_image_path);
+                   Image::make($image_tmp)->resize(600, 600)->save($medium_image_path);
+                   Image::make($image_tmp)->resize(300, 300)->save($small_image_path);
+                }
+            }
+            Product::where(['id' => $id])->update([
+                'category_id' => $data['category_id'],
+                'product_name' = $data['product_name'],
+                'product_code' = $data['product_code'],
+                'product_color' = $data['product_color'],
+                'description' = $data['description'],
+                'price' = $data['price'],
+                'image' = $filename
+             ]);
+            return redirect()->back()->with('flash_message_success', "Produto atualizado com sucesso!");
+        }
+        $productDetails = Product::where(['id' => $id])->first();
+        $categories = Category::where(['parent_id' => 0])->get();
+        $categories_dropdown = "<option='' selected disabled>Selecione</option>";
+        foreach ($categories as $cat) {
+            if ($cat->id == $productDetails->category_id) {
+                $selected = "selected";
+            } else {
+                $selected = '';
+            }
+
+            $categories_dropdown = "<option value='" . $cat->id . "'>" . $cat->name . "</option>";
+            $sub_categories = Category::where(['parent_id' => $cat->id])->get();
+            foreach ($sub_categories as $sub_cat) {
+                if ($sub_cat->id == $productDetails->category_id) {
+                    $selected = "selected";
+                } else {
+                    $selected = '';
+                }
+                $categories_dropdown .= "<option value='" . $sub_cat->id . "'>&nbsp;--&nbsp;". $sub_cat->name ."</option>";
+            }
+        }
+        return view('admin.product.edit-product')->with(compact('productDetails', 'categories_dropdown'));
+    }
+
     public function viewProducts()
     {
         $products = Product::get();
