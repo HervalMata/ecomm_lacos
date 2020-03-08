@@ -49,7 +49,7 @@
                                                 <td>{{ $category->name }}</td>
                                                 <td>{{ $category->parent_id }}</td>
                                                 <td>{{ $category->url }}</td>
-                                                <td class="center">editar</td>
+                                                <td class="center"><a href="{{ url('/admin/edit-category' . $category->id) }}" class="btn btn-primary btn-mini">Editar</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

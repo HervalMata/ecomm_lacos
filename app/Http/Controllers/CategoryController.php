@@ -23,6 +23,18 @@ class CategoryController extends Controller
         return view('admin.category.add_category')->with(compact('levels'));
     }
 
+    public function editCategory(Request $request, $id = null)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            Category::where(['id' => $id])->update(['name' => $data['category_name'], 'description' => $data['category_description'], 'url' => $data['category_url']]);
+            return redirect('/admin/view-categories')->with('flash_message_error', 'Categoria atualizada com sucesso');
+        }
+        $categoriesDetails = Category::where(['id' => $id])->first();
+        $levels = Category::where(['parent_id' => 0])->get();
+        return view('admin.category.add_category')->with(compact('categoriesDetails', 'levels'));
+    }
+
     public function viewCategories()
     {
         $categories = Category::get();
