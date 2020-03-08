@@ -65,6 +65,13 @@ $(document).ready(function(){
             }
         });
 
+    $("#delCat").click(function () {
+        if (confirm('Você tem certeza que quer excluir esta categoria?')) {
+            return true;
+        }
+        return false;
+    });
+
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 
 	$('select').select2();

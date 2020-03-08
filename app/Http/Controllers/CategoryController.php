@@ -35,6 +35,14 @@ class CategoryController extends Controller
         return view('admin.category.add_category')->with(compact('categoriesDetails', 'levels'));
     }
 
+    public function deleteCategories(Request $request, $id = null)
+    {
+        if (!empty($id)) {
+            Category::where(['id' => $id])->delete();
+            return redirect()->back()->with('flash_message_error', 'Categoria removida com sucesso');
+        }
+    }
+
     public function viewCategories()
     {
         $categories = Category::get();
