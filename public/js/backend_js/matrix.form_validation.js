@@ -65,12 +65,12 @@ $(document).ready(function(){
             }
         });
 
-    $("#delCat").click(function () {
+    /* $("#delCat").click(function () {
         if (confirm('Você tem certeza que quer excluir esta categoria?')) {
             return true;
         }
         return false;
-    });
+    }); */
 
     $("#add_product").validate({
         rules:{
