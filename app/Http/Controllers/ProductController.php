@@ -5,7 +5,7 @@ namespace LacosFofos\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use LacosFofos\Models\Product;
-use LacosFofos\Model\Category;
+use LacosFofos\Models\Category;
 use Image;
 
 class ProductController extends Controller
@@ -143,5 +143,10 @@ class ProductController extends Controller
             $products[$key]->category_name = $category_name->name;
         }
         return view('admin.product.view_products')->with(compact('products'));
+    }
+
+    public function addAttributes(Request $request, $id = null)
+    {
+        return view('admin.product.add_attributes');
     }
 }
