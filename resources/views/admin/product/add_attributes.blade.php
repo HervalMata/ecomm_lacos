@@ -29,58 +29,38 @@
                         <div class="widget-box">
                             <div class="widget-title">
                                 <span class="icon"><i class="icon-flag-sign"></i></span>
-                                <h5>Adicionar produto</h5>
+                                <h5>Adicionar atributos dos produto</h5>
                             </div>
                             <div class="widget-content nopadding">
-                                <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{ url('/admin/add-product') }}"
-                                      name="add_product" id="add_product" novalidate="novalidate">
+                                <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{ url('/admin/add-attribute' . $productDetails->id) }}"
+                                      name="add_attribute" id="add_attribute" novalidate="novalidate">
                                     {{ csrf_field() }}
                                     <div class="control-group">
-                                        <label class="control-label">Categoria</label>
-                                        <div class="controls">
-                                            <select name="category_id" id="category_id" style="width: 220px;">
-                                                <?php echo $categories_dropdown; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
                                         <label class="control-label">Nome</label>
-                                        <div class="controls">
-                                            <input type="text" name="product_name" id="product_name"/>
-                                        </div>
+                                        <label class="control-label"><strong>{{ $productDetails->product_name }}</strong></label>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">Código</label>
-                                        <div class="controls">
-                                            <input type="text" name="product_code" id="product_code"/>
-                                        </div>
+                                        <label class="control-label"><strong>{{ $productDetails->product_code }}</strong></label>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">Cor</label>
-                                        <div class="controls">
-                                            <input type="text" name="product_color" id="product_color"/>
-                                        </div>
+                                        <label class="control-label"><strong>{{ $productDetails->product_color }}</strong></label>
                                     </div>
                                     <div class="control-group">
-                                        <label class="control-label">Descrição</label>
-                                        <div class="controls">
-                                            <textarea name="description" id="description"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Preço</label>
-                                        <div class="controls">
-                                            <input type="text" name="price" id="price"/>
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Imagem</label>
-                                        <div class="controls">
-                                            <input type="text" name="image" id="image"/>
+                                        <label class="control-label"></label>
+                                        <div class="field_wrapper">
+                                            <div>
+                                                <input type="text" name="sku[]" id="sku" placeholder="SKU" style="width: 120px;"/>
+                                                <input type="text" name="size[]" id="size" placeholder="Tamanho" style="width: 120px;"/>
+                                                <input type="text" name="price[]" id="price" placeholder="Preço" style="width: 120px;"/>
+                                                <input type="text" name="stock[]" id="stock" placeholder="Estoque" style="width: 120px;"/>
+                                                <a href="javascript:void(0);" class="add_button" title="Adicionar Campo">Adicionar</a>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-actions">
-                                        <input type="submit" value="Adicionar produto" class="btn btn-success">
+                                        <input type="submit" value="Adicionar atributos do produto" class="btn btn-success">
                                     </div>
                                 </form>
                             </div>

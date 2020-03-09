@@ -242,4 +242,23 @@ $(document).ready(function(){
             window.location.href = "/admin/" + deleteFunction + "/" + id;
         });
     });
+
+    $(document).ready(function () {
+        var maxfield = 10;
+        var addButton = $('.add_button');
+        var wrapper = $('.field_wrapper');
+        var fieldHTML = '<div class="controls field_wrapper" style="margin-left: -2px;"><input type="text" name="sku[]" style="width: 120px;"/>&nbsp;<input type="text" name="size[]" style="width: 120px;/>&nbsp;<input type="text" name="price[]" style="width: 120px;"/>&nbsp;<input type="text" name="stock[]" style="width: 120px;"/><a href="javascript:void(0);" class="remove_button" title="Remove campo">Remove</a></div>';
+        var x = 1;
+        $(addButton).click(function () {
+            if (x < maxfield) {
+                x++;
+                $(wrapper).append(fieldHTML);
+            }
+        });
+        $(wrapper).on('click', '.remove_button', function (e) {
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+        });
+    });
 });
