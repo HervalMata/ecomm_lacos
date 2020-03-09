@@ -60,9 +60,13 @@
                                                         <img src="{{ asset('/images/backend_images/products/small/' . $product->image) }}" style="width: 60px;">
                                                     @endif
                                                 </td>
-                                                <td class="center"><a href="#myModal{{ $product->id) }}" class="btn btn-primary btn-mini">Visualizar<a href="{{ url('/admin/edit-product' . $product->id) }}" class="btn btn-primary btn-mini">Editar</a> <a id="delCat" href="{{ url('/admin/delete-product' . $product->id) }}" class="btn btn-danger btn-mini">Excluir</a></td>
+                                                <td class="center">
+                                                    <a href="#myModal{{ $product->id) }}" data-toggle="modal" class="btn btn-primary btn-mini">Visualizar</a>
+                                                    <a href="{{ url('/admin/edit-product' . $product->id) }}" class="btn btn-primary btn-mini">Editar</a>
+                                                    <a id="delProduct" rel="{{ $product->id }}" rel1="delete-product" href="javascript:" deleteRecord class="btn btn-danger btn-mini">Excluir</a>
+                                                </td>
                                             </tr>
-                                            <div id="myMOdal{{ $product->id }}" class="modal hide">
+                                            <div id="myMOdal{{ $product->id }}" class="modal-hide">
                                                 <div class="modal-header">
                                                     <button data-dismiss="modal" class="close" type="button">x</button>
                                                     <h3>{{ $product->name }}</h3>

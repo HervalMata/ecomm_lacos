@@ -224,5 +224,22 @@ $(document).ready(function(){
 			$(element).parents('.control-group').removeClass('error');
 			$(element).parents('.control-group').addClass('success');
 		}
-	});
+    });
+
+    $(".deleteRecord").click(function() {
+        var id = $(this).attr('rel');
+        var deleteFunction = $(this).attr('rel1');
+        Swal({
+             title: 'Você tem certeza?',
+             text: 'Você não terá possibilidade de reverter essa ação!',
+             type: 'Cuidado',
+             showCancelButton: true,
+             confirmButtonColor: '#308546',
+             cancelButtonColor: '#d33',
+             confirButtonText: 'Sim, Remova!'
+        },
+        function() {
+            window.location.href = "/admin/" + deleteFunction + "/" + id;
+        });
+    });
 });

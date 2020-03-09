@@ -121,10 +121,17 @@ class ProductController extends Controller
         return view('admin.product.edit-product')->with(compact('productDetails', 'categories_dropdown'));
     }
 
+    public function deleteProduct($id = null)
+    {
+        Product::where(['id' => $id])->delete();
+        return redirect()->back()->with('flash_message_error', 'Produto foi removido com sucesso.');
+    }
+
+
     public function deleteProductImage($id = null)
     {
         Product::where(['id' => $id])->update(['image' => '']);
-        return redirect()->back()->with('flash_message_error', 'Imagem do produto foi removida com sucesso.')
+        return redirect()->back()->with('flash_message_error', 'Imagem do produto foi removida com sucesso.');
     }
 
     public function viewProducts()
