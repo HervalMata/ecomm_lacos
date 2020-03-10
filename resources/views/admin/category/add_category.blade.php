@@ -4,7 +4,7 @@
     <div id="content">
         <!--breadcrumbs-->
         <div id="content-header">
-            <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+            <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Categoria</a></div>
             <h1>Categorias</h1>
         </div>
         <!--End-breadcrumbs-->

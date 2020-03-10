@@ -33,4 +33,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::match(['get', 'post'],'/admin/edit-category/{id}', 'CategoryController@editCategory');
     Route::match(['get', 'post'],'/admin/delete-category/{id}', 'CategoryController@deleteCategory');
     Route::get('/admin/view-categories', 'CategoryController@viewCategories');
+
+    Route::match(['get', 'post'],'/admin/add-product', 'ProductController@AddProduct');
+    Route::match(['get', 'post'],'/admin/edit-product/{id}', 'ProductController@editProduct');
+    Route::match(['get', 'post'],'/admin/delete-product/{id}', 'ProductController@deleteProduct');
+    Route::get('/admin/view-products', 'ProductController@viewProducts');
+
+    Route::get('/admin/delete-product-image/{id}', 'ProductController@deleteProductImage');
+
+    Route::match(['get', 'post'],'/admin/add-attributes/{id}', 'ProductController@AddAttributes');
+    Route::get('/admin/delete-attribute/{id}', 'ProductController@deleteAttribute');
+
+    Route::get('/', 'IndexController@index');
+
+    Route::get('/', function () {
+        return view('comming-soon');
+    });
+
 });
