@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use LacosFofos\Models\Product;
 use LacosFofos\Models\Category;
 use Image;
+use LacosFofos\Models\ProductsAttribute;
 
 class ProductController extends Controller
 {
@@ -127,7 +128,6 @@ class ProductController extends Controller
         return redirect()->back()->with('flash_message_error', 'Produto foi removido com sucesso.');
     }
 
-
     public function deleteProductImage($id = null)
     {
         Product::where(['id' => $id])->update(['image' => '']);
@@ -150,8 +150,19 @@ class ProductController extends Controller
         $productDetails = Product::where(['id' => $id])->first();
         if ($request->isMethod('post')) {
             $data = $request->all();
-            echo "<pre>"; print_r($data); die;
+            foreach ($data['sku'] as $key => $val ) {
+                if (!empty($val)) {
+                    $attribute = new ProductsAttribute();
+                    $attribute->product_id = $id;
+                    $attribute->sku = $val;
+                    $attribute->size = $data['size'][$key];
+                    $attribute->price = $data['price'][$key];
+                    $attribute->stock = $data['stock'][$key];
+                    $attribute->save();
+                }
+            }
+            return redirect('admin/add-attributes/' . $id)->with('flash_message_success', 'Atributos dos produtos adicionados com sucesso.');
         }
-        return view('admin.product.add_attributes');
+        return view('admin.product.add_attributes')->with(compact('productDetails'));
     }
 }

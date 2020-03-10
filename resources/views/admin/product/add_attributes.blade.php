@@ -35,6 +35,7 @@
                                 <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{ url('/admin/add-attribute' . $productDetails->id) }}"
                                       name="add_attribute" id="add_attribute" novalidate="novalidate">
                                     {{ csrf_field() }}
+                                    <input type="hidden" name="product_id" value="{{ $productDetails->id }}">
                                     <div class="control-group">
                                         <label class="control-label">Nome</label>
                                         <label class="control-label"><strong>{{ $productDetails->product_name }}</strong></label>
