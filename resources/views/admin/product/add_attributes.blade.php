@@ -37,6 +37,10 @@
                                     {{ csrf_field() }}
                                     <input type="hidden" name="product_id" value="{{ $productDetails->id }}">
                                     <div class="control-group">
+                                        <label class="control-label">Categoria</label>
+                                        <label class="control-label"><strong>{{ $category_name }}</strong></label>
+                                    </div>
+                                    <div class="control-group">
                                         <label class="control-label">Nome</label>
                                         <label class="control-label"><strong>{{ $productDetails->product_name }}</strong></label>
                                     </div>
