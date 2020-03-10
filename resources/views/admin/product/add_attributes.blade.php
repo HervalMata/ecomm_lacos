@@ -52,10 +52,10 @@
                                         <label class="control-label"></label>
                                         <div class="field_wrapper">
                                             <div>
-                                                <input type="text" name="sku[]" id="sku" placeholder="SKU" style="width: 120px;"/>
-                                                <input type="text" name="size[]" id="size" placeholder="Tamanho" style="width: 120px;"/>
-                                                <input type="text" name="price[]" id="price" placeholder="Preço" style="width: 120px;"/>
-                                                <input type="text" name="stock[]" id="stock" placeholder="Estoque" style="width: 120px;"/>
+                                                <input required title="Required" type="text" name="sku[]" id="sku" placeholder="SKU" style="width: 120px;"/>
+                                                <input required title="Required" type="text" name="size[]" id="size" placeholder="Tamanho" style="width: 120px;"/>
+                                                <input required title="Required" type="text" name="price[]" id="price" placeholder="Preço" style="width: 120px;"/>
+                                                <input required title="Required" type="text" name="stock[]" id="stock" placeholder="Estoque" style="width: 120px;"/>
                                                 <a href="javascript:void(0);" class="add_button" title="Adicionar Campo">Adicionar</a>
                                             </div>
                                         </div>
@@ -63,6 +63,48 @@
                                     <div class="form-actions">
                                         <input type="submit" value="Adicionar atributos do produto" class="btn btn-success">
                                     </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="widget-box">
+                            <div class="widget-title">
+                                <span class="icon"><i class="icon-th"></i></span>
+                                <h5>Atributos</h5>
+                            </div>
+                            <div class="widget-content nopadding">
+                                <form action="{{ url('admin/edit-attributes/' . $productDetails->id) }}" method="post">
+                                    {{ csrf_field() }}
+                                    <table class="table table-bordered data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>SKU</th>
+                                                <th>Tamanho</th>
+                                                <th>Preço</th>
+                                                <th>Estoque</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($productDetails['attributes'] as $attribute)
+                                                <tr class="gradeX">
+                                                    <td class="center"><input type="hidden" name="idAttr[]" value="{{ $attribute->id }}">{{ $attribute->id }}</td>
+                                                    <td class="center">{{ $attribute->sku }}</td>
+                                                    <td class="center">{{ $attribute->size }}</td>
+                                                    <td class="center"><input type="text" name="price[]" value="{{ $attribute->price }}"></td>
+                                                    <td class="center"><input type="text" name="stock[]" value="{{ $attribute->stock }}" required></td>
+                                                    <td class="center">
+                                                        <input type="submit" value="update" class="btn btn-primary btn-mini">
+                                                        <a rel="{{ $attribute->id }}" rel1="delete-attribute" href="javascript:" class="btn btn-danger btn-mini deleteRecord">Remover</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </form>
                             </div>
                         </div>
