@@ -226,7 +226,7 @@ $(document).ready(function(){
 		}
     });
 
-    $(".deleteRecord").click(function() {
+    $(document).on('click', '.deleteRecord', function(e) {
         var id = $(this).attr('rel');
         var deleteFunction = $(this).attr('rel1');
         Swal({
@@ -234,9 +234,9 @@ $(document).ready(function(){
              text: 'Você não terá possibilidade de reverter essa ação!',
              type: 'Cuidado',
              showCancelButton: true,
-             confirmButtonColor: '#308546',
-             cancelButtonColor: '#d33',
-             confirButtonText: 'Sim, Remova!'
+             confirmButtonClass: 'btn-danger',
+             confirButtonText: 'Sim, Remova!',
+             closeOnConfirm: false
         },
         function() {
             window.location.href = "/admin/" + deleteFunction + "/" + id;

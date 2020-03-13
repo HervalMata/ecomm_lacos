@@ -47,15 +47,15 @@ class ProductController extends Controller
             return redirect()->back()->with('flash_message_success', "Produto adicionado com sucesso!");
         }
         $categories = Category::where(['parent_id' => 0])->get();
-        $categories_dropdown = "<option='' selected disabled>Selecione</option>";
+        $categories_drop_down = "<option value='' selected disabled>Selecione</option>";
         foreach ($categories as $cat) {
-            $categories_dropdown = "<option value='" . $cat->id . "'>" . $cat->name . "</option>";
+            $categories_drop_down = "<option value='" . $cat->id . "'>" . $cat->name . "</option>";
             $sub_categories = Category::where(['parent_id' => $cat->id])->get();
             foreach ($sub_categories as $sub_cat) {
-                $categories_dropdown .= "<option value='" . $sub_cat->id . "'>&nbsp;--&nbsp;". $sub_cat->name ."</option>";
+                $categories_drop_down .= "<option value='" . $sub_cat->id . "'>&nbsp;--&nbsp;". $sub_cat->name ."</option>";
             }
         }
-        return view('admin.product.add-product')->with(compact('categories_dropdown'));
+        return view('admin.product.add_product')->with(compact('categories_drop_down'));
     }
 
     public function editProduct(Request $request, $id = null)
@@ -119,7 +119,7 @@ class ProductController extends Controller
                 $categories_dropdown .= "<option value='" . $sub_cat->id . "'>&nbsp;--&nbsp;". $sub_cat->name ."</option>";
             }
         }
-        return view('admin.product.edit-product')->with(compact('productDetails', 'categories_dropdown'));
+        return view('admin.product.edit_product')->with(compact('productDetails', 'categories_dropdown'));
     }
 
     public function deleteProduct($id = null)

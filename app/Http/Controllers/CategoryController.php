@@ -3,7 +3,7 @@
 namespace LacosFofos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use LacosFofos\Model\Category;
+use LacosFofos\Models\Category;
 
 class CategoryController extends Controller
 {

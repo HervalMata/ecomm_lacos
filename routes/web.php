@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 
-
+Route::get('/', 'IndexController@index');
 
 Route::match(['get', 'post'],'/admin', 'AdminController@login');
 
@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::match(['get', 'post'],'/admin/delete-category/{id}', 'CategoryController@deleteCategory');
     Route::get('/admin/view-categories', 'CategoryController@viewCategories');
 
-    Route::match(['get', 'post'],'/admin/add-product', 'ProductController@AddProduct');
+    Route::match(['get', 'post'],'/admin/add-product', 'ProductController@addProduct');
     Route::match(['get', 'post'],'/admin/edit-product/{id}', 'ProductController@editProduct');
     Route::match(['get', 'post'],'/admin/delete-product/{id}', 'ProductController@deleteProduct');
     Route::get('/admin/view-products', 'ProductController@viewProducts');
@@ -47,8 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::match(['get', 'post'],'/admin/add-attributes/{id}', 'ProductController@AddAttributes');
     Route::get('/admin/delete-attribute/{id}', 'ProductController@deleteAttribute');
 
-    Route::get('/', function () {
+    /*Route::get('/', function () {
         return view('comming-soon');
-    });
+    });*/
 
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace LacosFofos\Model;
+namespace LacosFofos\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

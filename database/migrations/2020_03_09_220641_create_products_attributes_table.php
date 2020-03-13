@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductsAttributeTable extends Migration
+class CreateProductsAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProductsAttributeTable extends Migration
      */
     public function up()
     {
-        Schema::create('products_attribute', function (Blueprint $table) {
+        Schema::create('products_attributes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id');
             $table->string('sku');

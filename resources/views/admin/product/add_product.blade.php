@@ -39,7 +39,7 @@
                                         <label class="control-label">Categoria</label>
                                         <div class="controls">
                                             <select name="category_id" id="category_id" style="width: 220px;">
-                                                <?php echo $categories_dropdown; ?>
+                                                <?php echo $categories_drop_down; ?>
                                             </select>
                                         </div>
                                     </div>
