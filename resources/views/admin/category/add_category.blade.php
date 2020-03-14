@@ -52,6 +52,12 @@
                                             <input type="text" name="url" id="url"/>
                                         </div>
                                     </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Ativo</label>
+                                        <div class="controls">
+                                            <input type="checkbox" name="status" id="status" value="1"/>
+                                        </div>
+                                    </div>
                                     <div class="form-actions">
                                         <input type="submit" value="Adicionar Categoria" class="btn btn-success">
                                     </div>

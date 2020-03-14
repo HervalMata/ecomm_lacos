@@ -179,7 +179,7 @@ class ProductController extends Controller
     public function products($url = null)
     {
         $categories = Category::all();
-        $categoriesDetails = Category::where(['url' => $url])->first();
+        $categoriesDetails = Category::where(['url' => $url, 'status' => 1])->first();
         $productsAll = Product::where(['category_id' => $categoriesDetails->id])->get();
         return view('products.listing')->with(compact('categories', 'categoriesDetails', 'productsAll'));
     }
