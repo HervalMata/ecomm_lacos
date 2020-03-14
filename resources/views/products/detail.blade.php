@@ -123,6 +123,14 @@
                             <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                             <h2>{{ $productDetails->product_name }}</h2>
                             <p>Código: {{ $productDetails->product_code }}</p>
+                            <p>
+                                <select id="selSize" name="size" style="width: 150px;">
+                                    <option value="">Selecione</option>
+                                    @foreach($productDetails->attributes as $sizes)
+                                        <option value="{{ $sizes->$size }}">{{ $sizes->$size }}</option>
+                                    @endforeach
+                                </select>
+                            </p>
                             <img src="images/product-details/rating.png" alt="" />
                             <span>
 									<span>Real ${{ $productDetails->price }}</span>
