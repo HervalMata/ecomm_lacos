@@ -16,21 +16,21 @@ class CategoriesTableSeeder extends Seeder
             'name' => 'Laços',
             'parent_id' => 0,
             'description' => 'Laços para enfeitar cabelo',
-            'url' => 'teste',
+            'url' => 'lacos',
             'status' => 1
         ]);
         Category::create([
             'name' => 'Tiaras',
             'parent_id' => 0,
             'description' => 'Tiaras lindas para enfeitar cabelo',
-            'url' => 'teste',
+            'url' => 'tiaras',
             'status' => 1
         ]);
         Category::create([
-            'name' => 'Viseira',
+            'name' => 'Viseiras',
             'parent_id' => 0,
             'description' => 'Viseiras para enfeitar cabelo',
-            'url' => 'teste',
+            'url' => 'viseiras',
             'status' => 1
         ]);
     }
