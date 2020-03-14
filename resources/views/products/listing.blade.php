@@ -74,7 +74,7 @@
                         <h2>Categorias</h2>
                         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
                             <div class="panel panel-default">
-                                <?php echo $categories_menu;?>
+<!--                                --><?php //echo $categories_menu;?>
                             </div>
                         </div><!--/category-products-->
 
