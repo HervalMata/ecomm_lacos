@@ -3,6 +3,7 @@
 namespace LacosFofos\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use LacosFofos\Models\Product;
 use LacosFofos\Models\Category;
@@ -262,5 +263,25 @@ class ProductController extends Controller
         echo $proAttr->price;
         echo "#";
         echo $proAttr->stock;
+    }
+
+    public function addToCart(Request $request)
+    {
+        $data = $request->all();
+
+        if (empty($data['user_email'])) {
+            $data['user_email'] = '';
+        }
+
+        if (empty($data['session_id'])) {
+            $data['session_id'] = '';
+        }
+
+        $proArr = explode("-", $data['size']);
+
+        DB::table('cart')->insert(['product_id' => $data['product_id'], 'product_name' => $data['product_name'],
+            'product_code' => $data['product_code'], 'product_color' => $data['product_color'], 'price' => $data['price'],
+            'size' => $data['size'], 'quantity' => $data['quantity'], 'user_email' => $data['user_email'], 'session_id' => $data['session_id']]);
+        die;
     }
 }
