@@ -92,6 +92,14 @@
                         </div>
                     </div>
                     <div class="col-sm-7">
+                        <form name="addToCartForm" id="addToCartForm" action="{{ url('add-cart') }}" method="post">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="product_id" value="{{ $productDetails->id }}">
+                            <input type="hidden" name="product_name" value="{{ $productDetails->product_name }}">
+                            <input type="hidden" name="product_code" value="{{ $productDetails->product_code }}">
+                            <input type="hidden" name="product_color" value="{{ $productDetails->product_color }}">
+                            <input type="hidden" name="price" value="{{ $productDetails->price }}">
+                        </form>
                         <div class="product-information"><!--/product-information-->
                             <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                             <h2>{{ $productDetails->product_name }}</h2>
@@ -106,15 +114,17 @@
                             </p>
                             <img src="images/product-details/rating.png" alt="" />
                             <span>
-									<span>Real ${{ $productDetails->price }}</span>
+									<span id="getPrice">Real ${{ $productDetails->price }}</span>
 									<label>Quantidade:</label>
-									<input type="text" value="3" />
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
-										Adicionar para o carrinho
-									</button>
+									<input name="quantity" type="text" value="3" />
+                                    @if($total_stock > 0)
+									    <button type="submit" class="btn btn-fefault cart" id="cartButton">
+										    <i class="fa fa-shopping-cart"></i>
+										    Adicionar para o carrinho
+									    </button>
+                                    @endif
 								</span>
-                            <p><b>Availability:</b> In Stock</p>
+                            <p><b>Availability:</b><span id="Availability"> @if($total_stock > 0) Em estoque @else Fora de estoque @endif</span></p>
                             <p><b>Condition:</b> New</p>
                             <p><b>Brand:</b> E-SHOPPER</p>
                             <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>

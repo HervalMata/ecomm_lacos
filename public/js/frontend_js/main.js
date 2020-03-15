@@ -40,7 +40,15 @@ $(document).ready(function () {
             url: '/get-product-price',
             data: {idSize : idSize},
             success: function (resp) {
-                $("#getPrice").html("R$ ", resp);
+                var arr = resp.split('#');
+                $("#getPrice").html("R$ " + arr[0]);
+                if (arr[1] = 0) {
+                    $("#cartButton").hide();
+                    $("#Availability").text("Fora de estoque");
+                } else {
+                    $("#cartButton").show();
+                    $("#Availability").text("Em estoque");
+                }
             }, error: function () {
                 alert("Error");
             }
