@@ -53,10 +53,11 @@ class ProductController extends Controller
                    $product->image = $filename;
                 }
             }
+            $product->status = $status;
             $product->save();
             return redirect()->back()->with('flash_message_success', "Produto adicionado com sucesso!");
         }
-        $product->status = $status;
+
         $categories = Category::where(['parent_id' => 0])->get();
         $categories_drop_down = "<option value='' selected disabled>Selecione</option>";
         foreach ($categories as $cat) {
@@ -216,6 +217,17 @@ class ProductController extends Controller
         }
         $title = "Adicione Atributos";
         return view('admin.product.add_attributes')->with(compact('title','productDetails', 'category_name'));
+    }
+
+    public function editAttributes(Request $request, $id = null)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            foreach ($data['idAttr'] as $key => $attr ) {
+                ProductsAttribute::where(['id' => $data['idAttr'][$key]])->update(['price' => $data['price'][$key], 'stock' => $data['stock'][$key]]);
+            }
+            return redirect()->back()->with('flash_message_error', 'Atributos do produto atualizados');
+        }
     }
 
     public function deleteAttribute($id = null)
