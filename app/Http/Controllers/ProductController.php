@@ -188,13 +188,21 @@ class ProductController extends Controller
     {
         $productDetails = Product::with('attributes')->where(['id' => $id])->first();
 
-        /*$categoryDetails = Category::where(['id' => $productDetails->category_id])->first();
-        $category_name = $categoryDetails->name;*/
+        $categoryDetails = Category::where(['id' => $productDetails->category_id])->first();
+        $category_name = $categoryDetails->name;
 
         if ($request->isMethod('post')) {
             $data = $request->all();
             foreach ($data['sku'] as $key => $val ) {
                 if (!empty($val)) {
+                    $attrCountSKU = ProductsAttribute::where(['sku' => $val])->count();
+                    if ($attrCountSKU > 0) {
+                        return redirect('admin/add-attributes/' . $id)->with('flas_message_error', 'SKU já existe. Por favor adicione outro SKU');
+                    }
+                    $attrCountSizes = ProductsAttribute::where(['product_id' => $id, 'size' => $data['size'][$key]])->count();
+                    if ($attrCountSizes > 0) {
+                        return redirect('admin/add-attributes/' . $id)->with('flas_message_error', 'Este Tamanho já existe. Por favor adicione outro Tamanho');
+                    }
                     $attribute = new ProductsAttribute();
                     $attribute->product_id = $id;
                     $attribute->sku = $val;
@@ -206,7 +214,8 @@ class ProductController extends Controller
             }
             return redirect('admin/add-attributes/' . $id)->with('flash_message_success', 'Atributos dos produtos adicionados com sucesso.');
         }
-        return view('admin.product.add_attributes')->with(compact('productDetails'));
+        $title = "Adicione Atributos";
+        return view('admin.product.add_attributes')->with(compact('title','productDetails', 'category_name'));
     }
 
     public function deleteAttribute($id = null)
