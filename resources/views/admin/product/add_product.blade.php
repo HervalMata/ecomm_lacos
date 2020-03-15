@@ -68,6 +68,18 @@
                                         </div>
                                     </div>
                                     <div class="control-group">
+                                        <label class="control-label">Material</label>
+                                        <div class="controls">
+                                            <textarea name="core" id="core"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Ativo</label>
+                                        <div class="controls">
+                                            <input type="checkbox" name="status" id="status" value="1">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
                                         <label class="control-label">Preço</label>
                                         <div class="controls">
                                             <input type="text" name="price" id="price"/>
@@ -76,7 +88,11 @@
                                     <div class="control-group">
                                         <label class="control-label">Imagem</label>
                                         <div class="controls">
-                                            <input type="text" name="image" id="image"/>
+                                            <div class="uploader" id="uniform-undefined">
+                                                <input type="file" name="image" id="image" size="19" style="opacity: 0;"/>
+                                                <span class="filename">Nenhum arquivo selecionado</span>
+                                                <span class="action">Escolha o arquivo</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-actions">

@@ -28,6 +28,16 @@ class ProductController extends Controller
             } else {
                 $product->description = '';
             }
+            if (!empty($data['care'])) {
+                $product->care = $data['care'];
+            } else {
+                $product->care = '';
+            }
+            if (empty($data['status'])) {
+                $status = '0';
+            } else {
+                $status = '1';
+            }
             $product->price = $data['price'];
             if ($request->hasFile('image')) {
                 $image_tmp = Input::file('image');
@@ -46,6 +56,7 @@ class ProductController extends Controller
             $product->save();
             return redirect()->back()->with('flash_message_success', "Produto adicionado com sucesso!");
         }
+        $product->status = $status;
         $categories = Category::where(['parent_id' => 0])->get();
         $categories_drop_down = "<option value='' selected disabled>Selecione</option>";
         foreach ($categories as $cat) {
@@ -68,6 +79,14 @@ class ProductController extends Controller
 
             if (empty($data['description'])) {
                 $data['description'] = '';
+            }
+            if (empty($data['care'])) {
+                $data['care'] = '';
+            }
+            if (empty($data['status'])) {
+                $status = '0';
+            } else {
+                $status = '1';
             }
             if ($request->hasFile('image')) {
                 $image_tmp = Input::file('image');
@@ -93,6 +112,8 @@ class ProductController extends Controller
                 'product_code' => $data['product_code'],
                 'product_color' => $data['product_color'],
                 'description' => $data['description'],
+                'care' => $data['care'],
+                'status => $status',
                 'price' => $data['price'],
                 'image' => $filename
              ]);
