@@ -51,6 +51,12 @@
                                             <input type="text" name="url" id="url" value="{{ $categoryDetails->url }}"/>
                                         </div>
                                     </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Ativo</label>
+                                        <div class="controls">
+                                            <input type="checkbox" name="status" id="status" value="{{ $categoryDetails->status }}"/>
+                                        </div>
+                                    </div>
                                     <div class="form-actions">
                                         <input type="submit" value="Atualizar Categoria" class="btn btn-success">
                                     </div>

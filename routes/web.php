@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+
+Route::get('/', 'IndexController@index');
 
 Route::match(['get', 'post'],'/admin', 'AdminController@login');
 
@@ -22,6 +25,12 @@ Route::get('/logout', 'AdminController@logout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/products/{url}', 'ProductController@products');
+
+Route::get('/products/{id}', 'ProductController@product');
+
+Route::get('/get-product-price', 'ProductController@getProductPrice');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/dashboard', 'AdminController@dashboard');
@@ -34,20 +43,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::match(['get', 'post'],'/admin/delete-category/{id}', 'CategoryController@deleteCategory');
     Route::get('/admin/view-categories', 'CategoryController@viewCategories');
 
-    Route::match(['get', 'post'],'/admin/add-product', 'ProductController@AddProduct');
+    Route::match(['get', 'post'],'/admin/add-product', 'ProductController@addProduct');
     Route::match(['get', 'post'],'/admin/edit-product/{id}', 'ProductController@editProduct');
-    Route::match(['get', 'post'],'/admin/delete-product/{id}', 'ProductController@deleteProduct');
+    Route::get('/admin/delete-product/{id}', 'ProductController@deleteProduct');
     Route::get('/admin/view-products', 'ProductController@viewProducts');
+    Route::get('/admin/delete-product-image/{id}', 'ProductController@deleteProductImage');
 
     Route::get('/admin/delete-product-image/{id}', 'ProductController@deleteProductImage');
 
     Route::match(['get', 'post'],'/admin/add-attributes/{id}', 'ProductController@AddAttributes');
+    Route::match(['get', 'post'],'/admin/edit-attributes/{id}', 'ProductController@editAttributes');
     Route::get('/admin/delete-attribute/{id}', 'ProductController@deleteAttribute');
 
-    Route::get('/', 'IndexController@index');
-
-    Route::get('/', function () {
+    /*Route::get('/', function () {
         return view('comming-soon');
-    });
+    });*/
 
 });

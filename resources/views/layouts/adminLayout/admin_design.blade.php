@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
-@include('layouts.adminL ayout.admin_header')
+@include('layouts.adminLayout.admin_header')
 @include('layouts.adminLayout.admin_sidebar')
 @yield('content')
 @include('layouts.adminLayout.admin_footer')

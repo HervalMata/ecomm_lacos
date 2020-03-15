@@ -58,6 +58,12 @@
                                         </div>
                                     </div>
                                     <div class="control-group">
+                                        <label class="control-label">Material</label>
+                                        <div class="controls">
+                                            <textarea name="care" id="care">{{ $productDetails->care }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
                                         <label class="control-label">Preço</label>
                                         <div class="controls">
                                             <input type="text" name="price" value="{{ $productDetails->price }}"
@@ -67,12 +73,30 @@
                                     <div class="control-group">
                                         <label class="control-label">Imagem</label>
                                         <div class="controls">
-                                            <input type="text" name="image" id="image"/>
-                                            <input type="hidden" name="current_image" value="{{ $productDetails->image }}">
-                                            @if(!empty($productDetails->image))
-                                                <img style="width: 60px;" src="{{ asset('/images/backend_images/products/small/' . $productDetails->image)b}}"> |
-                                                <a href="{{ url('/admin/delete-product-image/' . $productDetails->image) }}">Remover</a>
-                                            @endif
+                                            <div id="uniform-undefined">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" name="image" id="image"/>
+                                                            @if(!empty($productDetails->image))
+                                                                <input type="hidden" name="current_image" value="{{ $productDetails->image }}">
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if(!empty($productDetails->image))
+                                                                <img style="width: 60px;" src="{{ asset('/images/backend_images/products/small/' . $productDetails->image)}}"> |
+                                                                <a href="{{ url('/admin/delete-product-image/' . $productDetails->image) }}">Remover</a>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">Ativo</label>
+                                                <div class="controls">
+                                                    <input type="checkbox" name="status" id="status" @if($productDetails->status == "1") checked @endif value="1">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-actions">
@@ -85,7 +109,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <!--end-main-container-part-->
 @endsection

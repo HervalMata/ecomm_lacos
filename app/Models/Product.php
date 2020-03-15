@@ -8,6 +8,6 @@ class Product extends Model
 {
     public function attributes()
     {
-        return $this->hasMany('lacosFofos\Models\ProductsAttribute', 'product_id');
+        return $this->hasMany('LacosFofos\Models\ProductsAttribute', 'product_id');
     }
 }

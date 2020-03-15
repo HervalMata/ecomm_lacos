@@ -50,7 +50,6 @@
                                             <tr class="gradeX">
                                                 <td>{{ $product->id }}</td>
                                                 <td>{{ $product->category_name }}</td>
-                                                <td>{{ $product->name }}</td>
                                                 <td>{{ $product->product_name }}</td>
                                                 <td>{{ $product->product_code }}</td>
                                                 <td>{{ $product->product_color }}</td>
@@ -61,26 +60,28 @@
                                                     @endif
                                                 </td>
                                                 <td class="center">
-                                                    <a href="#myModal{{ $product->id) }}" data-toggle="modal" class="btn btn-primary btn-mini">Visualizar</a>
+                                                    <a href="#myModal{{ $product->id }}" data-toggle="modal" class="btn btn-primary btn-mini">Visualizar</a>
                                                     <a href="{{ url('/admin/edit-product' . $product->id) }}" class="btn btn-primary btn-mini">Editar</a>
                                                     <a id="delProduct" rel="{{ $product->id }}" rel1="delete-product" href="javascript:" deleteRecord class="btn btn-danger btn-mini">Excluir</a>
+
+                                                        <div id="myModal{{ $product->id }}" class="modal hide">
+                                                            <div class="modal-header">
+                                                                <button data-dismiss="modal" class="close" type="button">x</button>
+                                                                <h3>{{ $product->product_name }} Todos os detalhes</h3>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Produto ID: {{ $product->id }}</p>
+                                                                <p>Categoria: {{ $product->category_name }}</p>
+                                                                <p>Nome: {{ $product->product_name }}</p>
+                                                                <p>Código: {{ $product->product_code }}</p>
+                                                                <p>Cor: {{ $product->product_color }}</p>
+                                                                <p>Preço: {{ $product->price }}</p>
+                                                                <p>Descrição: {{ $product->description }}</p>
+                                                            </div>
+                                                        </div>
                                                 </td>
                                             </tr>
-                                            <div id="myMOdal{{ $product->id }}" class="modal-hide">
-                                                <div class="modal-header">
-                                                    <button data-dismiss="modal" class="close" type="button">x</button>
-                                                    <h3>{{ $product->name }}</h3>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Produto ID: {{ $product->id }}</p>
-                                                    <p>Categoria: {{ $product->category_name }}</p>
-                                                    <p>Nome: {{ $product->name }}</p>
-                                                    <p>Código: {{ $product->code }}</p>
-                                                    <p>Cor: {{ $product->color }}</p>
-                                                    <p>Preço: {{ $product->price }}</p>
-                                                    <p>Descrição: {{ $product->description }}</p>
-                                                </div>
-                                            </div>
+
                                         @endforeach
                                     </tbody>
                                 </table>
