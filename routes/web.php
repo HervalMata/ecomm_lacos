@@ -32,6 +32,8 @@ Route::get('/products/{id}', 'ProductController@product');
 
 Route::get('/get-product-price', 'ProductController@getProductPrice');
 
+Route::match(['get', 'post'],'/cart', 'ProductController@cart');
+
 Route::match(['get', 'post'],'/add-cart', 'ProductController@addCart');
 
 Route::group(['middleware' => ['auth']], function () {

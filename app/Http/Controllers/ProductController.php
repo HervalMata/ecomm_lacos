@@ -5,6 +5,7 @@ namespace LacosFofos\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use LacosFofos\Models\Product;
 use LacosFofos\Models\Category;
 use Image;
@@ -273,6 +274,12 @@ class ProductController extends Controller
             $data['user_email'] = '';
         }
 
+        $session_id = Session::get('session_id');
+        if (empty($session_id)) {
+            $session_id = str_random(40);
+            Session::put('session_id', $session_id);
+        }
+
         if (empty($data['session_id'])) {
             $data['session_id'] = '';
         }
@@ -282,6 +289,13 @@ class ProductController extends Controller
         DB::table('cart')->insert(['product_id' => $data['product_id'], 'product_name' => $data['product_name'],
             'product_code' => $data['product_code'], 'product_color' => $data['product_color'], 'price' => $data['price'],
             'size' => $data['size'], 'quantity' => $data['quantity'], 'user_email' => $data['user_email'], 'session_id' => $data['session_id']]);
-        die;
+        return redirect('cart')->with('flash_message_success', 'Produto foi adicionado para o carrinho!');
+    }
+
+    public function cart()
+    {
+        $session_id = Session::get('session_id');
+        $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+        return view('products.cart')->with(compact('userCart'));
     }
 }
