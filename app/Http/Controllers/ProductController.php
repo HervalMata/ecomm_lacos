@@ -3,7 +3,9 @@
 namespace LacosFofos\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use LacosFofos\Models\Product;
 use LacosFofos\Models\Category;
 use Image;
@@ -262,5 +264,73 @@ class ProductController extends Controller
         echo $proAttr->price;
         echo "#";
         echo $proAttr->stock;
+    }
+
+    public function addToCart(Request $request)
+    {
+        $data = $request->all();
+
+        if (empty($data['user_email'])) {
+            $data['user_email'] = '';
+        }
+
+        $session_id = Session::get('session_id');
+        if (empty($session_id)) {
+            $session_id = str_random(40);
+            Session::put('session_id', $session_id);
+        }
+
+        if (empty($data['session_id'])) {
+            $data['session_id'] = '';
+        }
+
+        $sizeArr = explode("-", $data['size']);
+
+        $countProducts = DB::table('cart')->where(['product_id' => $data['product_id'], 'product_color' => $data['product_color'],
+            'size' => $sizeArr[1], 'session_id' => $data['session_id']])->count();
+
+        if ($countProducts > 0) {
+            return redirect()->back()->with('flash_message_error', 'Produto já existe no carrinho.');
+        } else {
+
+            $getSKU = ProductsAttribute::select('sku')->where(['product_id' => $data['product_id'], 'size' => $sizeArr[1]])->first();
+
+            DB::table('cart')->insert(['product_id' => $data['product_id'], 'product_name' => $data['product_name'],
+                'product_code' => $getSKU, 'product_color' => $data['product_color'], 'price' => $data['price'],
+                'size' => $sizeArr[1], 'quantity' => $data['quantity'], 'user_email' => $data['user_email'], 'session_id' => $data['session_id']]);
+        }
+        return redirect('cart')->with('flash_message_success', 'Produto foi adicionado para o carrinho!');
+    }
+
+    public function cart()
+    {
+        $session_id = Session::get('session_id');
+        $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+        foreach ($userCart as $key => $product) {
+            $productDetails = Product::where('id', $product->product_id)->first();
+            $userCart[$key]->image = $productDetails->image;
+        }
+        return view('products.cart')->with(compact('userCart'));
+    }
+
+    public function deleteCartProduct($id = null)
+    {
+        DB::table('cart')->where('id', $id)->delete();
+        return redirect('cart')->with('flash_message_success', 'Produto foi removido do carrinho!');
+    }
+
+    public function updateCartQuantity($id = null, $quantity = null)
+    {
+        $getCartDetails = DB::table('cart')->where(['id' => $id])->first();
+        $getAttributeStock = ProductsAttribute::where('sku', $getCartDetails->product_code)->first();
+        echo $getAttributeStock->stock; echo "--";
+        $updated_quantity = $getCartDetails->quantity + $quantity;
+        if ($getAttributeStock->stock >= $updated_quantity) {
+            DB::table('cart')->where('id', $id)->increment('quantity', $quantity);
+            return redirect('cart')->with('flash_message_success', 'A quantidade do produto foi aumentada no carrinho!');
+        } else {
+            return redirect('cart')->with('flash_message_error', 'A quantidade do produto requerido nãom está disponível');
+        }
+
     }
 }
