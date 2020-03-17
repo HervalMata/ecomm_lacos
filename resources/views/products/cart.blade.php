@@ -10,7 +10,7 @@
                 </ol>
             </div>
             @if(Session::has('flash_message_error'))
-                <div class="alert alert-error alert-block">
+                <div class="alert alert-error alert-block" style="background-color: #f2dfd0">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>{!! session('flash_message_error') !!}</strong>
                 </div>
@@ -48,11 +48,14 @@
                         </td>
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
+                                <a class="cart_quantity_up" href="{{ url('/cart/update-quantity/' . $cart->id , '/1') }}"> + </a>
                                 <input class="cart_quantity_input" type="text" name="quantity" value="{{ $cart->quantity }}" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
+                                @if($cart->quantity > 1)
+                                <a class="cart_quantity_down" href="{{ url('/cart/update-quantity/' . $cart->id , '/1') }}"> - </a>
+                                @endif
                             </div>
                         </td>
+                        @endforeach
                         <td class="cart_total">
                             <p class="cart_total_price">R$ {{ $cart->price * $cart->quantity }}</p>
                         </td>
