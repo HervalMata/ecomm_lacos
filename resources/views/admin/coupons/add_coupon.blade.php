@@ -33,7 +33,7 @@
                             </div>
                             <div class="widget-content nopadding">
                                 <form class="form-horizontal" method="post" action="{{ url('/admin/add-coupon') }}"
-                                      name="add_coupon" id="add_coupon" novalidate="novalidate">
+                                      name="add_coupon" id="add_coupon">
                                     {{ csrf_field() }}
                                     <div class="control-group">
                                         <label class="control-label">Tipo de Pagamento</label>
