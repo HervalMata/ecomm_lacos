@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use LacosFofos\Models\Coupon;
 use LacosFofos\Models\Product;
 use LacosFofos\Models\Category;
 use Image;
@@ -332,5 +333,16 @@ class ProductController extends Controller
             return redirect('cart')->with('flash_message_error', 'A quantidade do produto requerido nãom está disponível');
         }
 
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        $data = $request->all();
+        $couponCount = Coupon::where('coupon_code', $data['coupon_code'])->count();
+        if ($couponCount == 0) {
+            return redirect()->back()->with('flash_message_error', 'Cupom invalído');
+        } else {
+            echo "Sucesso";
+        }
     }
 }
