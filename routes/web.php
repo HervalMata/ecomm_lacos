@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/delete-attribute/{id}', 'ProductController@deleteAttribute');
 
     Route::match(['get', 'post'],'/admin/add-coupon', 'CouponsController@addCoupon');
+    Route::get('/admin/view-coupons', 'CouponsController@viewCoupons');
 
     /*Route::get('/', function () {
         return view('comming-soon');
