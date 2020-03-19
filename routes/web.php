@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/view-coupons', 'CouponsController@viewCoupons');
 
     Route::match(['get', 'post'],'/admin/add-banner', 'BannersController@addBanner');
+    Route::get('/admin/view-banners', 'CouponsController@viewBanners');
 
     /*Route::get('/', function () {
         return view('comming-soon');
