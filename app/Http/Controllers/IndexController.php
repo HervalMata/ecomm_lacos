@@ -3,6 +3,7 @@
 namespace LacosFofos\Http\Controllers;
 
 use Illuminate\Http\Request;
+use LacosFofos\Models\Banner;
 use LacosFofos\Models\Category;
 use LacosFofos\Models\Product;
 
@@ -10,9 +11,8 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $productsAll = Product::get();
-        $productsAll = Product::orderBy('id', 'DESC')->get();
-        $productsAll = Product::inRandomOrder()->get();
+        $productsAll = Product::inRandomOrder()->where('status', 1)->get();
+        $productsAll = json_decode(json_encode($productsAll));
         $categories_menu = "";
         $categories = Category::all();
         foreach ($categories as $cat) {
@@ -27,6 +27,7 @@ class IndexController extends Controller
             </div>
             ";
         }
+        $banners = Banner::where('status' , '1')->get();
         return view('index')->with(compact('productsAll', 'categories_menu', 'categories'));
     }
 }
