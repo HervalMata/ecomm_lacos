@@ -13,10 +13,16 @@
                 <li><a href="{{ url('/admin/view-products') }}">Visualizar Produtos</a> </li>
             </ul>
         </li>
-        <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i><span>Cupons</span><span class="label label-important">2</span> </a>
+        <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i><span>Cupons</span><span class="label label-important">3</span> </a>
             <ul>
                 <li><a href="{{ url('/admin/add-coupon') }}">Adicionar Cupom</a> </li>
-                <li><a href="{{ url('/admin/view-coupons') }}">Visualizar Cuponss</a> </li>
+                <li><a href="{{ url('/admin/view-coupons') }}">Visualizar Cupons</a> </li>
+            </ul>
+        </li>
+        <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i><span>Banners</span><span class="label label-important">4</span> </a>
+            <ul>
+                <li><a href="{{ url('/admin/add-banner') }}">Adicionar Banner</a> </li>
+                <li><a href="{{ url('/admin/view-banners') }}">Visualizar Banners</a> </li>
             </ul>
         </li>
     </ul>
