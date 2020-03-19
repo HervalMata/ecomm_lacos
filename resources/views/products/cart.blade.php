@@ -75,8 +75,8 @@
     <section id="do_action">
         <div class="container">
             <div class="heading">
-                <h3>What would you like to do next?</h3>
-                <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+                <h3>O que você gostaria de fazer agora?</h3>
+                <p>Escolha se você tem um cupom de desconto ou pontos que gostaria de usar ou estimar seu custo de entrega.</p>
             </div>
             <div class="row">
                 <div class="col-sm-6">
@@ -96,13 +96,16 @@
                 <div class="col-sm-6">
                     <div class="total_area">
                         <ul>
-                            <li>Cart Sub Total <span>$59</span></li>
-                            <li>Eco Tax <span>$2</span></li>
-                            <li>Shipping Cost <span>Free</span></li>
-                            <li>Total <span>R$ <?php echo $total_amount; ?>></span></li>
+                            @if(!empty(Session::get('CouponAmount')))
+                                <li>Sub Total <span>R$ <?php echo $total_amount; ?></span></li>
+                                <li>Desconto Cupom <span>R$ <?php echo Session::get('CouponAmount'); ?></span></li>
+                                <li>Total <span>R$ <?php echo $total_amount - Session::get('CouponAmount'); ?></span></li>
+                            @else
+                                <li>Total <span>R$ <?php echo $total_amount; ?>></span></li>
+                            @endif
                         </ul>
-                        <a class="btn btn-default update" href="">Update</a>
-                        <a class="btn btn-default check_out" href="">Check Out</a>
+                        <a class="btn btn-default update" href="">Atualize</a>
+                        <a class="btn btn-default check_out" href="">Finalizar Compra</a>
                     </div>
                 </div>
             </div>
