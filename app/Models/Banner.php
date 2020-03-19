@@ -1,10 +1,10 @@
 <?php
 
-namespace LacosFofos\Model;
+namespace LacosFofos\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Banner extends Model
 {
     //
 }

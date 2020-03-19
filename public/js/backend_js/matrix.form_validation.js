@@ -65,11 +65,80 @@ $(document).ready(function(){
             }
         });
 
-    $("#delCat").click(function () {
+    /* $("#delCat").click(function () {
         if (confirm('Você tem certeza que quer excluir esta categoria?')) {
             return true;
         }
         return false;
+    }); */
+
+    $("#add_product").validate({
+        rules:{
+            category_id:{
+                required:true
+            },
+            product_name:{
+                required:true
+            },
+            product_code:{
+                required:true
+            },
+            product_color:{
+                required:true
+            },
+            description:{
+                required:true
+            },
+            price:{
+                required:true,
+                number:true
+            },
+            image:{
+                required:true
+            }
+        },
+        errorClass: "help-inline",
+        errorElement: "span",
+        highlight:function (element, errorClass, validClass) {
+            $(element).parents('.control-group').addClass('error');
+        },
+        unhighlight:function (element, errorClass, validClass) {
+            $(element).parents('.control-group').removeClass('error');
+            $(element).parents('.control-group').addClass('success');
+        }
+    });
+
+    $("#edit_product").validate({
+        rules:{
+            category_id:{
+                required:true
+            },
+            product_name:{
+                required:true
+            },
+            product_code:{
+                required:true
+            },
+            product_color:{
+                required:true
+            },
+            description:{
+                required:true
+            },
+            price:{
+                required:true,
+                number:true
+            }
+        },
+        errorClass: "help-inline",
+        errorElement: "span",
+        highlight:function (element, errorClass, validClass) {
+            $(element).parents('.control-group').addClass('error');
+        },
+        unhighlight:function (element, errorClass, validClass) {
+            $(element).parents('.control-group').removeClass('error');
+            $(element).parents('.control-group').addClass('success');
+        }
     });
 
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
@@ -155,5 +224,41 @@ $(document).ready(function(){
 			$(element).parents('.control-group').removeClass('error');
 			$(element).parents('.control-group').addClass('success');
 		}
-	});
+    });
+
+    $(document).on('click', '.deleteRecord', function(e) {
+        var id = $(this).attr('rel');
+        var deleteFunction = $(this).attr('rel1');
+        Swal({
+             title: 'Você tem certeza?',
+             text: 'Você não terá possibilidade de reverter essa ação!',
+             type: 'Cuidado',
+             showCancelButton: true,
+             confirmButtonClass: 'btn-danger',
+             confirButtonText: 'Sim, Remova!',
+             closeOnConfirm: false
+        },
+        function() {
+            window.location.href = "/admin/" + deleteFunction + "/" + id;
+        });
+    });
+
+    $(document).ready(function () {
+        var maxfield = 10;
+        var addButton = $('.add_button');
+        var wrapper = $('.field_wrapper');
+        var fieldHTML = '<div class="controls field_wrapper" style="margin-left: -2px;"><input type="text" name="sku[]" style="width: 120px;"/>&nbsp;<input type="text" name="size[]" style="width: 120px;/>&nbsp;<input type="text" name="price[]" style="width: 120px;"/>&nbsp;<input type="text" name="stock[]" style="width: 120px;"/><a href="javascript:void(0);" class="remove_button" title="Remove campo">Remove</a></div>';
+        var x = 1;
+        $(addButton).click(function () {
+            if (x < maxfield) {
+                x++;
+                $(wrapper).append(fieldHTML);
+            }
+        });
+        $(wrapper).on('click', '.remove_button', function (e) {
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+        });
+    });
 });

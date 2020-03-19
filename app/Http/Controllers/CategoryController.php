@@ -3,7 +3,7 @@
 namespace LacosFofos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use LacosFofos\Model\Category;
+use LacosFofos\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -11,11 +11,19 @@ class CategoryController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
+
+            if (empty($data['status'])) {
+                $status = '0';
+            } else {
+                $status = '1';
+            }
+
             $category = new Category;
             $category->name = $data['category_name'];
             $category->parent_id = $data['parent_id'];
             $category->description = $data['description'];
             $category->url = $data['url'];
+            $category->status = $data['status'];
             $category->save();
             return redirect('/admin/view-categories')->with('flash_message_error', 'Categoria adicionada com sucesso');
         }
@@ -27,7 +35,14 @@ class CategoryController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            Category::where(['id' => $id])->update(['name' => $data['category_name'], 'description' => $data['category_description'], 'url' => $data['category_url']]);
+
+            if (empty($data['status'])) {
+                $status = '0';
+            } else {
+                $status = '1';
+            }
+
+            Category::where(['id' => $id])->update(['name' => $data['category_name'], 'description' => $data['category_description'], 'url' => $data['category_url'], 'status' => $status]);
             return redirect('/admin/view-categories')->with('flash_message_error', 'Categoria atualizada com sucesso');
         }
         $categoriesDetails = Category::where(['id' => $id])->first();
