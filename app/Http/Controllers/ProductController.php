@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use LacosFofos\Models\Coupon;
 use LacosFofos\Models\Product;
 use LacosFofos\Models\Category;
 use Image;
@@ -332,5 +333,41 @@ class ProductController extends Controller
             return redirect('cart')->with('flash_message_error', 'A quantidade do produto requerido nãom está disponível');
         }
 
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        Session::forget('CouponAmount');
+        Session::forget('CouponCode');
+        $data = $request->all();
+        $couponCount = Coupon::where('coupon_code', $data['coupon_code'])->count();
+        if ($couponCount == 0) {
+            return redirect()->back()->with('flash_message_error', 'Cupom invalído');
+        } else {
+            $couponDetails = Coupon::where('coupon_code', $data['coupon_code'])->first();
+            if ($couponDetails->status == 0) {
+                return redirect()->back()->with('flash_message_error', 'Este Cupom não está ativo');
+            }
+            $expiry_date = $couponDetails->expiry_date;
+            $current_date = date('Y-m-d');
+            if ($expiry_date < $current_date) {
+                return redirect()->back()->with('flash_message_error', 'Este Cupom está expirado');
+            }
+            $session_id = Session::get('session_id');
+            $user_cart = DB::table('cart')->where(['session_id' => $session_id])->get();
+            $total_amount = 0;
+            foreach ($user_cart as $item) {
+                $total_amount = $total_amount + ($item->price * $item->quantity);
+            }
+            if ($couponDetails->amount_type == "Fixed") {
+                $couponAmount = $couponDetails->amount;
+            } else {
+                $couponAmount = $total_amount * ($couponDetails->amount/100);
+            }
+            Session::put('CouponAmount', $couponAmount);
+            Session::put('CouponCode', $data['coupon_code']);
+
+            return redirect()->back()->with('flash_message_error', 'O Código do Cupom foi aplicado com sucesso. Você tem um desconto disponível');
+        }
     }
 }
